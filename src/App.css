@@ -1,0 +1,11 @@
+.text-hide {
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  line-clamp: 1;
+  overflow: hidden;
+}
+
+#scroll-hide::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
