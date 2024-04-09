@@ -84,9 +84,10 @@ export const SearchDialog = () => {
                         setIsloading(true)
                         await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${e.target.textContent}&limit=5&appid=ce5f061361befce47da747e40bd6c878`)
                             .then(response => {
+                                const [first] = response.data;
                                 setCoordinates({
-                                    lng: response?.data[0]?.lon,
-                                    lat: response.data[0]?.lat
+                                    lng: first?.lon,
+                                    lat: first?.lat
                                 })
                                 setIsloading(false)
                             })
