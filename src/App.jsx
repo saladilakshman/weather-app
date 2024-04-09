@@ -153,7 +153,7 @@ export default function App() {
           <DialogContent>
             <Typography variant='h6' sx={{
               fontSize: { xs: 12, lg: 16 }
-            }}>Please Allow location access in your browser settings</Typography>
+            }}>Please allow location access in your browser settings</Typography>
           </DialogContent>
           <DialogActions>
             <Button variant="text" size="small" onClick={() => dispatch({ type: 'close-dialog' })}>Ok</Button>
