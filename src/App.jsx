@@ -3,7 +3,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { Container, Typography, Stack, Box, ThemeProvider, createTheme, CssBaseline, AppBar, Button, useTheme, useMediaQuery } from "@mui/material";
+import { Container, Typography, Stack, Box, ThemeProvider, createTheme, CssBaseline, AppBar, Button, useTheme, useMediaQuery, Dialog, DialogContent, DialogActions } from "@mui/material";
 import { createContext, useReducer, useEffect, useState } from "react";
 import CloudQueueIcon from '@mui/icons-material/CloudQueue';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
@@ -18,6 +18,7 @@ export const WeatherState = createContext();
 export default function App() {
   const App_initial_state = {
     showsearchbar: false,
+    showdialog: false,
     forecastdata: {},
     temperaturedata: {},
     pollutiondata: {}
@@ -86,6 +87,18 @@ export default function App() {
         pollutiondata: action.payload
       }
     }
+    if (action.type === "open-dialog") {
+      return {
+        ...state,
+        showdialog: true
+      }
+    }
+    if (action.type === "close-dialog") {
+      return {
+        ...state,
+        showdialog: false
+      }
+    }
     else {
       return state
     }
@@ -110,7 +123,8 @@ export default function App() {
       navigator.permissions.query({ name: 'geolocation' })
         .then(PermissionStatus => {
           if (PermissionStatus.state === "denied") {
-            window.alert('Please enable location in your browser settings.')
+            setCoordinates(coordinates);
+            dispatch({ type: 'show-dialog' })
           }
           if (PermissionStatus.state === "granted" || PermissionStatus.state === "prompt") {
             navigator.geolocation.getCurrentPosition(position => {
@@ -135,6 +149,16 @@ export default function App() {
       <CssBaseline />
       <WeatherState.Provider value={{ mobile, state, dispatch, setCoordinates, setIsloading }}>
         <SearchDialog />
+        <Dialog open={state.showdialog} onClose={() => dispatch({ type: 'close-dialog' })}>
+          <DialogContent>
+            <Typography variant='h6' sx={{
+              fontSize: { xs: 12, lg: 16 }
+            }}>Please Allow location access in your browser settings</Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button variant="text" size="small" onClick={() => dispatch({ type: 'close-dialog' })}>Ok</Button>
+          </DialogActions>
+        </Dialog>
         <Container>
           <AppBar sx={styles.appbar}>
             <Stack direction="row" justifyContent="space-around" alignItems="center" spacing={5}>
