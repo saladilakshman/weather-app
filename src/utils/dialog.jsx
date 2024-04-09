@@ -89,7 +89,6 @@ export const SearchDialog = () => {
                                     lng: first?.lon,
                                     lat: first?.lat
                                 })
-                                window.alert(response.data)
                                 setIsloading(false)
                             })
                             .catch(err => {
