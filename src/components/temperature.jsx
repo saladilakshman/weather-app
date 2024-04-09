@@ -45,7 +45,7 @@ export const Temperature = () => {
                     </Stack>
                     <Stack direction="row" justifyContent="center" alignItems="center">
                         <LocationOnIcon />
-                        <Typography variant="body2" color="inherit">{state?.temperaturedata?.name},{new Intl.DisplayNames(['en'], { type: 'region' }).of(state?.temperaturedata?.sys?.country)}</Typography>
+                        <Typography variant="body2" color="inherit">{state?.temperaturedata?.name},  {new Intl.DisplayNames(['en'], { type: 'region' }).of(state?.temperaturedata?.sys?.country)}</Typography>
                     </Stack>
                 </Stack>
             </Paper>

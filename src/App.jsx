@@ -112,7 +112,7 @@ export default function App() {
           if (PermissionStatus.state === "denied") {
             window.alert('Please enable location in your browser settings.')
           }
-          if (PermissionStatus.state === "granted") {
+          if (PermissionStatus.state === "granted" || PermissionStatus.state === "prompt") {
             navigator.geolocation.getCurrentPosition(position => {
               const longitude = position.coords.longitude;
               const latitude = position.coords.latitude;

@@ -19,7 +19,8 @@ export const WeatherInfo = () => {
                 gridColumnGap: 8,
                 grdiRowGap: { xs: 6 },
                 placeItems: 'baseline',
-                ml: { lg: -4, xs: 0 }
+                ml: { lg: -4, xs: 0 },
+                paddingBlockEnd: { xs: 2, lg: '' }
             }}>
                 <Temperature />
                 <Highlight />
