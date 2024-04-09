@@ -82,7 +82,7 @@ export const SearchDialog = () => {
                     <ListItemButton disablepadding={"true"} onClick={async (e) => {
                         dispatch({ type: 'close-searchbox' })
                         setIsloading(true)
-                        await axios.get(`http://api.openweathermap.org/geo/1.0/direct?q=${e.target.textContent}&limit=5&appid=${API_KEYS.weather}`)
+                        await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${e.target.textContent}&limit=5&appid=${API_KEYS.weather}`)
                             .then(response => {
                                 const [first] = response.data;
                                 setCoordinates({
