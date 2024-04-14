@@ -16,13 +16,17 @@ export const HourlyForeCastData = () => {
         return { ...item, dt: newDt }
     })
     const object = { ...state?.forecastdata, list: newarr }
-    const oneDayReadings = object?.list?.filter((el) => el.dt.includes("Wednesday"));
+    const dtCounts = object?.list?.reduce((acc, obj) => {
+        acc[obj.dt.split(" ")[0]] = (acc[obj.dt.split(" ")[0]] || 0) + 1
+        return acc
+    }, {});
+    const oneDayReadings = object?.list?.filter(obj => dtCounts[obj.dt.split(" ")[0]] == 8);
     const [iconslist, setIconslist] = useState([]);
     return (
         <Paper sx={styles.hourlyforcast.paper}>
             <Typography variant="body1" sx={styles.hourlyforcast.bottom}>Today at</Typography>
             <Stack direction="row" justifyContent={"flex-start"} alignItems="center" spacing={2} sx={styles.hourlyforcast.flex} id="scroll-hide">
-                {oneDayReadings?.map((forcastdetails, index) => {
+                {oneDayReadings.slice(0, 8)?.map((forcastdetails, index) => {
                     const { dt, weather, main } = forcastdetails;
                     weather.map((icons) => {
                         import(`../assets/svg/${icons?.icon}.svg`)
@@ -43,7 +47,7 @@ export const HourlyForeCastData = () => {
             </Stack>
             <br />
             <Stack direction="row" justifyContent={"flex-start"} alignItems="center" spacing={2} sx={styles.hourlyforcast.flex} id="scroll-hide">
-                {oneDayReadings?.map((forcastdetails, index) => {
+                {oneDayReadings.slice(0, 8)?.map((forcastdetails, index) => {
                     const { dt, main } = forcastdetails;
                     return <Paper key={index} sx={styles.hourlyforcast.secondPaper}>
                         <Stack direction="column" justifyContent="center" alignItems="center">
